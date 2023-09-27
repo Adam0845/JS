@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Adam Cinal 4Ic</title>
+</head>
+<body>
+    <script>
+        document.write("<h2><b>Witaj Java Script!</b></h2>");
+        for(let i= -111; i<112; i+=1) {
+            document.write(i + "<br>")
+        }
+        for(let i=50; i > 0; i-=3) {
+            document.write(i + " ")
+        }
+        document.write("<br>")
+        for(let i=50; i >0; i-=1) {
+            if (i > 40) document.write(i + " ")
+            else if (i < 10) document.write(i + " ")
+        }
+        for(let i= -30; i < 40; i+=2) {
+            if (i < 5) console.log(i)
+            if (i > 14 ) console.log(i)
+            
+        }
+        for(let i= -20; i < 40; i+=1) {
+            if (i%2==1 || i%2==-1) {
+                if (i > 3) console.log(i)      
+                if (i < 12 ) console.log(i)      
+        }
+        }
+        for(let i=-100; i < 41; i+=1)  {
+            if (i%3==0) {
+                if(i < -50) console.log(i)
+                if(i > 12) console.log(i)
+            }
+        }
+        document.write("<br>")
+        
+        liczba = prompt("Podaj jakas liczbe: ");
+        for(let i=0;i < 6; i+=1) {
+            document.write(liczba)
+        }
+        document.write("<br>")
+        document.write("<br>")
+        for(let i = 0;i < 6; i+=1) 
+        {
+          if(i==0 || i==5)
+          {
+            for(let k=0;k < 8; k+=1) {
+                document.write(liczba)
+                
+           }
+          }
+          else {
+            for(let k=0; k < 6; k+=1) {
+                if(k==0 || k==5)
+                {
+                    document.write(liczba)
+                }
+                else {
+                    for(let o=0; o < 3; o+=1)
+                    {
+                        document.write("&nbsp")
+                    }
+                    
+                }
+            }
+          }
+        document.write("<br>")
+        }
+        document.write("<br>")
+        document.write("<br>")
+        for(let i = 6; i > -5; i-=2)
+        {
+            for(let o = -4; o<=i; o+=1)
+            {
+                document.write(liczba)
+            }
+           
+            document.write("<br>")
+        }
+        document.write("<br>")
+        
+        const tab = [ ];
+        for(let i = 1; i < 7; i+=1)
+        {
+            tab.push(i)
+            for(let o = 0; o < i; o+=1)
+            {
+                document.write(tab[o])
+            }
+            document.write("<br>")
+        }
+        document.write("<br>")
+        let rows = 6;
+        let wyjscie = "";
+
+        for (let i = 1; i <= rows; i++) {
+            for (let j = 1; j <= rows - i; j++) {
+                wyjscie += " ";
+            }
+
+            for (let k = i; k >= 1; k--) {
+                wyjscie += k;
+            }
+            for (let l = 1; l <= rows - i; l++) {
+                wyjscie += " ";
+            }
+            wyjscie += "<br>";
+        }
+
+        document.write("<pre>" + wyjscie + "</p>")
+
+        let silnia = 1
+        document.write("Silnia podanej liczby jest rowna: ")
+        for(let i = 1; i <= liczba; i+=1)
+        {
+            
+            silnia *= i 
+            
+        }
+        document.write(silnia )
+        let suma = 0
+        for(let i = 0; i <= liczba; i+=1)
+        {
+            if(i%2==1)
+            {
+                suma += i
+            }
+        }
+        document.write("<br>" + "Suma liczb nieparzystych do naszej liczby: " + suma)
+
+        for(let i = 0; i < liczba; ++i)
+        {
+            if(liczba%i==0)
+            {
+                document.write("<br>" + " Liczba nie jest pierwsza!")
+                break;
+
+            }
+            else {
+                document.write('<br>' + "Liczba jest pierwsza!")
+                break;
+            }
+        }
+       
+       
+    
+    </script>
+
+</body>
+</html>
+

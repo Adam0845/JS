@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Adam Cinal 4Ic</title>
+</head>
+<body>
+    <script>
+        const tab = [];
+        let dna = prompt("Podaj wygenerowany kod DNA: ")
+        dna = dna.toUpperCase()
+        dna = dna.replace(/\s/g, '');
+        for(let i = 0; i < dna.length; i+=3)
+        {
+            tab.push(dna.substring(i,i+3))
+        }
+        for(let i = 0; i < tab.length; ++i) //wypisanie
+        {
+            if(tab[i] == 'ATG')
+               document.write("<b style='color: green'>" + tab[i] + ' ' + "</b>")
+            if(tab[i] == 'TAA')
+                document.write("<p style='background-color: yellow; display: inline;'>" + tab[i] +  "</p>" +  ' ' )
+            if(tab[i] == 'TAG')
+                document.write("<p style='background-color: yellow; display: inline;'>" + tab[i] + "</p>" + ' ')
+            if(tab[i] == 'TGA')
+                document.write("<p style='background-color: yellow; display: inline;'>" + tab[i] + "</p>" + ' ')
+            else
+                document.write(tab[i] + ' ')
+
+            
+        }
+       
+        dna = tab.toString()
+        dna = dna.replace(/,/g, " ");
+        let dna2 = '' //nic komplementarna
+        for(let i = 0; i < dna.length; ++i)
+        {
+            if(dna[i] == 'T')
+                dna2 += 'a'
+            if(dna[i] == 'A')
+                dna2 += 't'
+            if(dna[i] == 'G')
+                dna2 += 'c'
+            if(dna[i] == 'C')
+                dna2 += 'g'
+            
+        }
+       document.write("<br>" + "<br>"  + dna2)
+       
+       const trojki = [];
+       const liczba_t = [];
+       for(let i = 0; i < tab.length; ++i) { //staty na dwoch tablicach
+            if(trojki.indexOf(tab[i]) !== -1) {
+                 liczba_t[trojki.indexOf(tab[i])] +=1;
+
+            }
+            else {
+                trojki.push(tab[i])
+                liczba_t.push(1);
+            }
+    }
+    trojki.sort((a, b) => { //sortowanie liczb 
+    const indexA = trojki.indexOf(a);
+    const indexB = trojki.indexOf(b);
+    return liczba_t[indexB] - liczba_t[indexA];
+    });
+    liczba_t.sort((a, b) => b - a);
+
+    function losowyKolor() { //funkcja kolorwania, lekka inspiracja 
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  return `rgb(${r},${g},${b})`;
+}
+    let kolor = '' //kolorwanie statystyk
+    for(let i = 0; i < trojki.length; ++i)
+    {
+        
+        document.write("<br>")
+        document.write("<span id='spanik'>" + trojki[i] + ' - '  + liczba_t[i] + "</span>")
+        var span = document.getElementById("spanik");
+        
+        if(i%5==0)
+            kolor = losowyKolor()
+        
+        span.style.backgroundColor = kolor
+        document.getElementById('spanik').id = 'spanik' + i;
+    }
+
+    
+
+
+
+
+
+
+    </script>
+
+</body>
+</html>
