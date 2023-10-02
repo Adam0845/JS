@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="libs/jq.js"></script>
+    <script>
+        $(document).ready(function () {
+            tab = []
+            $(window).on("mousedown", function (e) {
+                console.log("x: " + e.clientX + ", y: " + e.clientY)
+                tab.push({ x: e.clientX, y: e.clientY })
+                let d = $("<div>").html("1").css("left", e.clientX)
+            })
+
+        })
+
+    </script>
+    <style>
+        #main {
+            width: 100%;
+        }
+
+        #mapa {
+            width: 80%;
+            background-color: blue;
+            float: left;
+        }
+
+        #bok {
+            width: 20%;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <div id="mapa">
+            <h1> T: Wektory, setInterval, requestAnimationFrame</h1>
+        </div>
+        <div id="bok">
+            <button name="steps">STEPS</button>
+            <button name="jumps">JUMPING</button>
+            <button name="fly">FLY</button>
+        </div>
+    </div>
+</body>

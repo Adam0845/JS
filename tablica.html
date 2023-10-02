@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="libs/jq.js"></script>
+    <script>
+        $(document).ready(function () {
+            let lps = ["lp", "cena", "produkt"]
+            let ceny = ["5,60", "3,23", "7,45", "10,00", "3,20", "9,22"]
+            let produkty = ["chleb", "mąka", "masło", "kefir", "dżem", "inne"]
+            let tr = $("<tr>")
+            let s = 0
+
+            $("#tabela").append(tr)
+            for (let i = 0; i < lps.length; ++i) {
+                let td = $("<td>").html(lps[i])
+                tr.append(td)
+
+            }
+            for (let i = 0; i < ceny.length; ++i) {
+                let tr2 = $("<tr>")
+                $("#tabela").append(tr2)
+                let td2 = $("<td>").html(i + 1)
+                let td3 = $("<td>").html(ceny[i])
+                let td4 = $("<td>").html(produkty[i])
+                tr2.append(td2, td3, td4)
+            }
+            let tr3 = $("<tr>")
+            $("#tabela").append(tr3)
+            let td5 = $("<td>").html("SUMA: ")
+
+            for (let i = 0; i < ceny.length; ++i) {
+                // let cena2 = 
+                // tab.append(cena2.)
+                s += parseFloat(ceny[i].replace(',', '.'))
+
+            }
+            let td6 = $("<td>").html(s)
+            tr3.append(td5, td6)
+        })
+
+    </script>
+    <style>
+        td {
+            border: solid black 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <table id="tabela">
+
+    </table>
+</body>
+
+</html>

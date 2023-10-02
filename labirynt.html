@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labirynt Cinal 4Ic</title>
+    <script src="libs/jq.js"></script>
+
+
+</head>
+<style>
+    #full {
+        position: relative;
+        left: 100px;
+        top: 100px;
+    }
+
+    .dd {
+        position: absolute;
+        border: solid 1px black;
+        width: 100px;
+        height: 100px;
+    }
+
+    #nag {
+        color: blue;
+        font-size: 28px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    #reset,
+    #next,
+    #start {
+        display: inline-block;
+        background-color: grey;
+        padding: 10px;
+        font-size: large;
+
+    }
+
+    #plgr {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        background: green;
+        border-radius: 50%;
+    }
+
+    #plbl {
+
+        width: 100px;
+        height: 100px;
+        background: blue;
+        border-radius: 50%;
+    }
+</style>
+<script>
+
+    $(document).ready(function () {
+        // nowy obiekt buttona
+        let tab = []
+        for (let i = 0; i < 5; ++i) {
+            for (let j = 0; j < 5; ++j) {
+                let d = $("<div>").addClass("dd").css("left", i * 100).css("top", j * 100).on("click", function () {
+                    $(this).css("background", "yellow")
+                    tab.push({
+                        x: $(this).css("left"),
+                        y: $(this).css("top")
+                    })
+                })
+                $("#full").append(d)
+                $("#start").on("click", function () {
+                    if (tab.length < 3) {
+                        alert("Za krótki labirynt!")
+                        location.reload()
+                    }
+                    else {
+                        console.log("Works")
+                        $("#plgr").css("left", tab[0].x).css("top", tab[0].y)
+                        $("#plbl").css("left", tab[tab.length - 1].x).css("top", tab[tab.length - 1].y)
+                    }
+
+                })
+                //$(this).css("left", tab[i].x)
+
+
+            }
+
+        }
+        console.log(tab)
+
+
+
+    })
+
+</script>
+
+<body>
+    <h1 id="nag"> T: Labirynt - tablice obiektów </h1>
+    <button id="start">START GAME</button>
+    <button id="next">NEXT MOVE</button>
+    <button id="reset">RESET GAME</button>
+    <div id="full">
+
+        <div id="plgr"></div>
+        <div id="plbl"></div>
+    </div>
+</body>
+
+</html>

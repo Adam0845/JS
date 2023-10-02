@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="libs/jq.js"></script>
+
+
+</head>
+
+<script>
+    $(document).ready(function () {
+        $(window).on("mousedown", function (e) {
+            console.log("x: " + e.clientX + ", y: " + e.clientY)
+        })
+
+        $(window).on("mousemove", function (e) {
+            console.log("x: " + e.clientX + ", y: " + e.clientY)
+        })
+    })
+</script>
+<style>
+    #body {
+        height: 100%;
+    }
+
+    #a {
+        background-color: grey;
+        display: inline-block;
+        width: 30%;
+        height: 100%;
+    }
+
+    #c {
+        background-color: aqua;
+        display: inline-block;
+        height: 100%;
+    }
+
+    #b {
+        background-color: yellow;
+        width: 60%;
+        display: inline-block;
+        height: 100%;
+
+    }
+</style>
+
+<body>
+    <div id="a">A</div>
+    <div id="c"></div>
+    <div id="b">B</div>
+</body>
+
+</html>

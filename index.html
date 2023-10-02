@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="libs/jq.js"></script>
+
+
+</head>
+
+<script>
+    $(document).ready(function () {
+        // nowy obiekt buttona
+
+        let x = $("#select").val()
+        $("#select").on("change", function () {
+            x = $("#select").val()
+            console.log(x)
+        })
+        $("#bt1").on("click", function () {
+            for (let i = 1; i <= $("#select").val(); ++i) {
+                let d = $("<div>").html(i).addClass("bts");
+                $("#main").append(d);
+
+            }
+
+        })
+        $("#bt2").on("click", function () {
+            $("#main").empty()
+        })
+    })
+
+</script>
+<style>
+    .bts {
+        margin: 0 auto;
+        padding: 5px;
+        margin-top: 5px;
+        color: white;
+        background-color: blue;
+        width: 30%;
+        height: 10%;
+    }
+</style>
+
+<body>
+
+    <h1 style="color: blue">T: Petla for, dynamiczne tworzenie i usuwanie html-a, cz1</h1>
+    <button id="bt1">UTWÓRZ MENU</button>
+    <button id="bt2">USUŃ MENU</button>
+    <select name="select" id="select">
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4>4</option>
+        <option value=5>5</option>
+    </select>
+    <div id="main">
+    </div>
+</body>
+
+</html>
