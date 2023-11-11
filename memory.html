@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        H1 {
+            text-align: center;
+        }
+
+        #main {
+            text-align: center;
+            position: relative;
+            width: 400px;
+            height: 400px;
+            margin: auto;
+        }
+
+        .image {
+            width: 100px;
+            float: left;
+            position: relative;
+        }
+
+        #main img:nth-child(4n+1) {
+            clear: both;
+        }
+
+
+        #hide {
+            display: none;
+        }
+
+        .czolowa {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #progressBar {
+            width: 400px;
+            height: 30px;
+            background-color: lightgrey;
+            text-align: center;
+            margin: auto;
+        }
+
+        #progress {
+            width: 400px;
+            height: 100%;
+            background-color: green;
+        }
+
+        .timer {
+            margin: auto;
+            height: 1px;
+            width: 100px;
+        }
+
+        #timer {
+            position: absolute;
+            font-size: 25px;
+            left: center;
+            margin: auto;
+            text-align: center;
+        }
+    </style>
+    <script>
+        // const tab = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg", "7.jpg", "8.jpg" ]
+        const tab = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8]
+        function imgFunction() {
+
+        }
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function init() {
+            shuffle(tab); // dodajemy to wywołanie, aby przetasować tablicę
+            for (let i = 0; i < 16; i++) {
+                const el = document.createElement("img");
+                el.src = "img/0.jpg";
+                el.classList.add("image");
+                document.getElementById("main").append(el);
+            }
+
+            const map = document.createElement('map');
+            const bloc = document.getElementById('main');
+            let area1 = document.createElement('area');
+            let area2 = document.createElement('area');
+            let area3 = document.createElement('area');
+            map.name = "image-map";
+            area1.coords = "41,40,69,152,336,63"
+            area1.shape = "poly";
+            area2.coords = "83,221,339,109,365,234"
+            area2.shape = "poly";
+            area3.coords = "114,381,368,298,95,271"
+            area3.shape = "poly";
+            // area1.setAttribute("onclick", "hide()");
+            // area2.setAttribute("onclick", "hide()");
+            // area3.setAttribute("onclick", "hide()");
+            document.getElementById("main").appendChild(map);
+            map.appendChild(area1);
+            map.appendChild(area2);
+            map.appendChild(area3);
+
+            const el = document.createElement("img");
+            el.src = "img/czolowa.png";
+            el.useMap = "#image-map";
+            el.classList.add("czolowa");
+            document.getElementById("main").append(el);
+
+            const czolowa = document.getElementsByClassName("czolowa");
+            const timerh1 = document.getElementById('timer');
+            area1.onclick = function () {
+
+                console.log('area1')
+                czolowa[0].style.display = "none";
+
+                document.getElementById('timer').textContent = "00:30.000";
+                document.getElementById('title').textContent += "(30[s])";
+
+                const start = document.getElementsByClassName("image");
+                start[0].addEventListener("click", timer, { once: true })
+
+                function timer() {
+
+                    let endTime;
+                    const timerElement = document.getElementById("timer");
+                    const progressBar = document.getElementById("progress");
+
+                    let timer;
+
+
+                    endTime = new Date();
+                    endTime.setSeconds(endTime.getSeconds() + 30);
+
+                    let totalTime = 30000;
+                    let elapsedTime = 0;
+
+                    timer = setInterval(() => {
+                        const currentTime = new Date();
+                        elapsedTime = endTime - currentTime;
+
+                        if (elapsedTime <= 0) {
+                            clearInterval(timer);
+                            timerElement.textContent = "(00:00.000)";
+                            finishCountdown();
+                        } else {
+                            const minutes = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, "0");
+                            const seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000).toString().padStart(2, "0");
+                            const milliseconds = Math.floor((elapsedTime % 1000)).toString().padStart(3, "0");
+                            timerElement.textContent = `(${minutes}:${seconds}.${milliseconds})`;
+
+                            const progressWidth = (elapsedTime / totalTime) * 100;
+                            progressBar.style.width = progressWidth + "%";
+                        }
+                    }, 1);
+
+                }
+                function finishCountdown() {
+
+                    alert("Czas minął!");
+                }
+            }
+            area2.onclick = function () {
+
+                console.log('area2')
+                czolowa[0].style.display = "none";
+                document.getElementById('timer').textContent = "01:00.000";
+                document.getElementById('title').textContent += "(60[s])";
+
+                const start = document.getElementsByClassName("image");
+                start[0].addEventListener("click", timer, { once: true })
+
+                function timer() {
+
+                    let endTime;
+                    const timerElement = document.getElementById("timer");
+                    const progressBar = document.getElementById("progress");
+
+                    let timer;
+
+
+                    endTime = new Date();
+                    endTime.setSeconds(endTime.getSeconds() + 60);
+
+                    let totalTime = 60000;
+                    let elapsedTime = 0;
+
+                    timer = setInterval(() => {
+                        const currentTime = new Date();
+                        elapsedTime = endTime - currentTime;
+
+                        if (elapsedTime <= 0) {
+                            clearInterval(timer);
+                            timerElement.textContent = "(00:00.000)";
+                            finishCountdown();
+                        } else {
+                            const minutes = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, "0");
+                            const seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000).toString().padStart(2, "0");
+                            const milliseconds = Math.floor((elapsedTime % 1000)).toString().padStart(3, "0");
+                            timerElement.textContent = `(${minutes}:${seconds}.${milliseconds})`;
+
+                            const progressWidth = (elapsedTime / totalTime) * 100;
+                            progressBar.style.width = progressWidth + "%";
+                        }
+                    }, 1);
+                }
+                function finishCountdown() {
+
+                    alert("Czas minął!");
+                }
+            }
+
+            area3.onclick = function () {
+
+                console.log('area3')
+                czolowa[0].style.display = "none";
+                document.getElementById('timer').textContent = "01:30.000";
+                document.getElementById('title').textContent += "(90[s])";
+
+                const start = document.getElementsByClassName("image");
+                start[0].addEventListener("click", timer, { once: true })
+
+                function timer() {
+
+                    let endTime;
+                    const timerElement = document.getElementById("timer");
+                    const progressBar = document.getElementById("progress");
+
+                    let timer;
+
+
+                    endTime = new Date();
+                    endTime.setSeconds(endTime.getSeconds() + 90);
+
+                    let totalTime = 90000;
+                    let elapsedTime = 0;
+
+                    timer = setInterval(() => {
+                        const currentTime = new Date();
+                        elapsedTime = endTime - currentTime;
+
+                        if (elapsedTime <= 0) {
+                            clearInterval(timer);
+                            timerElement.textContent = "(00:00.000)";
+                            finishCountdown();
+                        } else {
+                            const minutes = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, "0");
+                            const seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000).toString().padStart(2, "0");
+                            const milliseconds = Math.floor((elapsedTime % 1000)).toString().padStart(3, "0");
+                            timerElement.textContent = `(${minutes}:${seconds}.${milliseconds})`;
+
+                            const progressWidth = (elapsedTime / totalTime) * 100;
+                            progressBar.style.width = progressWidth + "%";
+                        }
+                    }, 1);
+                }
+                function finishCountdown() {
+
+                    alert("Czas minął!");
+                }
+
+            }
+
+            // map.onclick = function hide() {
+            //     // mapa.style.display = 'none';
+            //     console.log('czolowa wyl');
+            // }
+
+            let elements = document.getElementsByClassName("image");
+            let elementsImg = document.getElementsByTagName("img");
+            let zzz = []
+            let win = []
+            const location = elements[0].src
+
+
+            for (let i = 0; i < elements.length; i++) {
+                elements[i].onclick = function () {
+
+                    if (zzz.length < 2) {
+                        if (location == elements[i].src) {
+                            elements[i].src = "img/" + tab[i] + ".jpg"
+                            zzz.push(i)
+
+                            setTimeout(function () {
+                                if (zzz.length == 2) {
+                                    if (elementsImg[zzz[0]].src == elementsImg[zzz[1]].src) {
+                                        elements[zzz[0]].src = "img/" + tab[i] + ".jpg"
+                                        elements[zzz[1]].src = "img/" + tab[i] + ".jpg"
+                                        win.push([zzz[0]], [zzz[1]])
+                                        console.log(win.length)
+                                        if (win.length == 16) {
+                                            alert("Wygrałeś");
+                                        }
+                                        zzz = []
+
+                                    }
+                                    else {
+                                        elements[zzz[0]].src = "img/0.jpg"
+                                        elements[zzz[1]].src = "img/0.jpg"
+                                        zzz = []
+                                    }
+
+                                };
+                            }, 1000);
+                        }
+                    }
+                }
+
+
+
+            };
+
+        }
+
+    </script>
+</head>
+
+<body onload="init()">
+    <h1 id="title">MEMORY</h1>
+    <div class="time">
+        <div class="timer">
+            <a id="timer"></a>
+        </div>
+        <div id="progressBar">
+            <div id="progress"></div>
+        </div>
+    </div>
+    <br>
+    <div id='main'>
+    </div>
+</body>
+
+</html>
