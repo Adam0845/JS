@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Ship Game</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script>
+            function game() {
+                const main = document.getElementById('main');
+                let tabelka = document.createElement('table');
+                main.append(tabelka);
+                const tab = []
+                const statki = [1,1,1,1,2,2,2,3,3,4];
+                for(let i = 0; i < 12; ++i)
+                {
+                    tab[i] = [];
+                }
+                for(let i = 0; i < 10; ++i)
+                {
+                      const kolumna = document.createElement('tr');
+                      tabelka.append(kolumna);
+                      for(let j= 0; j < 12; ++j) 
+                      {      
+                        const komora = document.createElement('td');
+                        komora.innerHTML = '';
+                        kolumna.append(komora);
+                        komora.setAttribute('id', i + ' ' + j);
+                        tab[i][j] = i + ' ' + j;
+                      }
+                }
+                const selected_ships = [];
+                function givetotable(rozmiar_statku)
+                {
+                  let ifAround = false;
+                  let x = Math.floor(Math.random() * 10);
+                  let y = Math.floor(Math.random() * 10);
+                  console.log(x + " " + y)
+                  let kierunek = Math.floor(Math.random()*2)
+                  console.log("kierunek" + kierunek)
+                  for(let i = 0; i < rozmiar_statku; ++i)
+                  {
+                    
+                    let wybrany = document.getElementById(x + ' ' + y)
+                    while(wybrany.className == 'selected')
+                    {
+                      x = Math.floor(Math.random() * 10);
+                      y = Math.floor(Math.random() * 10);
+                      wybrany = document.getElementById(x + ' ' + y)
+                      console.log('To juz jest czarne')
+                    }
+                    wybrany.classList.add('selected');
+                    if(kierunek == 1)
+                    {
+                      if(rozmiar_statku + x > 10)
+                      {
+                        x-=1
+                      }
+                      else
+                      {
+                        x+=1
+                      }
+                      
+                    }
+                    else
+                    {if(rozmiar_statku + y > 10)
+                      {
+                        y-=1
+                      }
+                      else
+                      {
+                        y+=1
+                      }
+                    }
+                  }
+                 
+                  if(x + 4 > 10)
+                  {
+                    console.log("Mozna 4")
+                  }
+                  console.log(x + ' ' + y);
+                  console.log(tab)
+                }
+                for(let i = 0; i < statki.length; ++i)
+                {
+                  givetotable(statki[i]);
+                }
+            }
+    </script>
+</head>
+ <body onload="game()">
+    <div id="main">
+
+    </div>
+ </body>
+ </html>
