@@ -1,0 +1,73 @@
+table, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+table
+{
+    width: 500px;
+    height: 500px;
+}
+.selected
+{
+    background-color: black;
+}
+h2,.headd
+{
+    text-align: center;
+    font-size: 30px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.czesckomp
+{
+    margin-right: 10%;
+    float: right;
+}
+.czescgracz
+{
+    margin-left: 15%;
+    display: inline-block;
+
+}
+.box {
+    position: relative;
+  
+}
+
+.box table {
+    position: absolute;
+    z-index: 1000;
+}
+
+.box table tr {
+    height: 50px;
+}
+
+.box table td {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #000;
+}
+.tabelka
+{
+    float: right;
+}
+.zaznaczone
+{
+    background-color: green;
+}
+.stala
+{
+    background-color: blue;
+}
+.konflikt {
+    background-color: red;
+}
+.butonik
+{
+    margin-left: 50%;
+    margin-top: 50px;
+    padding: 10px;
+    border: 2px solid gray;
+    font-size: 25px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}

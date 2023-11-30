@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Gra w Statki</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script>
+    function init() {
+    //tworze tu bloki
+    const main = document.getElementById('main');
+    const czesckomp = document.createElement('div');
+    const czescgracz = document.createElement('div');
+    czesckomp.classList.add('czesckomp')
+    czescgracz.classList.add('czescgracz')
+    main.append(czescgracz);
+    main.append(czesckomp);
+    let tabelka = document.createElement('table');
+    let tabelka_gracz = document.createElement('table');
+    tabelka_gracz.classList.add('tabelka')
+    let podpisik1 = document.createElement('h2');
+    let podpisik2 = document.createElement('h2');
+    podpisik1.innerHTML = "GRACZ"
+    podpisik1.classList.add('headd')
+    podpisik2.innerHTML = "KOMPUTER"
+
+    czescgracz.append(podpisik1);
+    czescgracz.append(tabelka_gracz);
+    czesckomp.append(podpisik2);
+    czesckomp.append(tabelka);
+    const tab = [];
+    for (let i = 0; i < 12; i++) {
+        const row = [];
+        for (let j = 0; j < 12; j++) {
+            row.push(0);
+        }
+    tab.push(row);
+    }
+    
+    const statki = [1, 1, 1, 1, 2, 2, 2, 3, 3, 4];
+    for (let i = 0; i < 10; ++i) {
+        const kolumna = document.createElement('tr');
+        tabelka.append(kolumna);
+        for (let j = 0; j < 10; ++j) {
+            const komora = document.createElement('td');
+            komora.innerHTML = '';
+            kolumna.append(komora);
+            komora.setAttribute('id', i + ' ' + j);
+        }
+    }
+    for (let i = 0; i < 10; ++i) {
+        const kolumna1 = document.createElement('tr');
+        tabelka_gracz.append(kolumna1);
+        for (let j = 0; j < 10; ++j) {
+            const komora1 = document.createElement('td');
+            komora1.innerHTML = '';
+            kolumna1.append(komora1);
+           
+        }
+    }
+    let staty = []
+    let zmiana_kiera = 1;
+    function oznaczMiejsca(x, y, rozmiar, kierunek) {
+        let czyKonflikt = false;
+        let zaznaczoneKomorki =[]
+    for (let i = 0; i < rozmiar; i++) {
+        let komora;
+        let zaznaczoneKomorki = [];
+        if(((x + i) < 10) || ((y + i) < 10))
+        {
+        if (zmiana_kiera=== 1) { 
+            komora = tabelka_gracz.rows[y].cells[x + i];
+        } else if (zmiana_kiera === 0) { 
+            komora = tabelka_gracz.rows[y + i].cells[x];
+        }
+        }
+
+        if (komora) {
+            if (komora.classList.contains('stala')) {
+                czyKonflikt = true;
+                komora.classList.add('kolizja')
+                break;
+            }
+            // if (tabelka_gracz.rows[y+1].cells[x+i].contains('stala'))
+            // {
+            //     komora.classList('konflikt')
+            // }
+            
+            zaznaczoneKomorki.push(komora);
+            if(zaznaczoneKomorki.length > rozmiar)
+            {
+                zaznaczoneKomorki[zaznaczoneKomorki-1].classList.remove('zaznaczone')
+            }
+            komora.classList.add('zaznaczone');
+            zaznaczoneKomorki.push(komora)
+            document.addEventListener('click', function () {
+               
+                if(komora.className == 'zaznaczone')
+                {
+                    komora.classList.add('stala')
+                }
+                document.removeEventListener('click', function() {
+                    console.log('essa')
+                });
+            });
+
+        }
+    }
+}
+document.addEventListener('contextmenu', function (e) {
+             e.preventDefault();
+             console.log('dziala dziala')
+             zmiana_kiera = 1 - zmiana_kiera
+        })
+function usun() {
+                let zaznaczone = document.querySelectorAll('.zaznaczone');
+                zaznaczone.forEach(function (komora) {
+                    komora.classList.remove('zaznaczone');
+                    
+                });
+            }
+
+    function startgame()
+    {
+        let button = document.createElement('button')
+        button.innerHTML = "ROZPOCZNIJ!"
+        button.classList.add('butonik')
+        main.append(button)
+    }
+    let stt = document.createElement('div');
+    main.append(stt);
+    stt.classList.add('box');
+    let isplacing = false;
+    for(let i = 0; i < statki.length; i++)
+    {
+        let statek = document.createElement('table');
+        statek.style.height = 50 + "px";
+        statek.style.maxWidth = (statki[i] * 50) + "px";
+        statek.style.top = (-60 * i) + "px";
+        
+        let kol = document.createElement('tr');
+        statek.append(kol)
+        staty.push(statek)
+   
+        for(let j = 0; j < statki[i]; j++)
+        {
+            let ilosc = document.createElement('td');
+            kol.append(ilosc);
+        }
+        
+        stt.append(statek)
+        if(statki[i] == 4)
+        {
+            statek.click
+            statek.style.backgroundColor = "blue";
+        }
+        document.addEventListener("click", function resetPlacingShip(e) {
+                if (isplacing && e.target !== statek) {
+                    isplacing = false;
+                    document.removeEventListener("click", resetPlacingShip);
+                }
+            });
+        statek.addEventListener("click", function(e){
+            staty.splice(staty.indexOf(statek),1)
+            console.log(staty.indexOf(statek))
+            console.log(staty)
+            if(staty==0)
+            {
+                startgame()
+            }
+        if (!isplacing) {
+            isplacing = true; 
+            e.stopPropagation();
+            main.addEventListener("mousemove", function(e) {
+                        e.preventDefault()
+                const tableRect = tabelka_gracz.getBoundingClientRect();
+                let mouseX = e.clientX;
+                let mouseY = e.clientY;
+               
+                if (mouseX >= tableRect.left && mouseX <= tableRect.right -statek.offsetWidth  &&
+                    mouseY >= tableRect.top && mouseY <= tableRect.bottom) {
+                    usun();
+                    statek.style.left = mouseX + statek.width + "px";
+                    statek.style.top = mouseY - tableRect.height - 150 + "px"; 
+                   statek.style.cursor = "pointer"
+                   statek.style.display = "none";
+                    let x = Math.floor((mouseX - tableRect.left) / 50);
+                    let y = Math.floor((mouseY - tableRect.top) / 50);
+                   
+                            statek.remove()
+                    staty.slice()
+                    statek.remove()
+                    document.addEventListener("mousedown", function(e)
+                    {
+                        if(e.target == tabelka_gracz) {
+                            isplacing = false;
+                            
+                          
+                        }
+                        
+                    });
+                    if(isplacing==true) {
+                    oznaczMiejsca(x, y, statki[i], 1);
+                    }
+                }
+                
+    });
+}
+});
+console.log(staty)
+let isClicked = false; 
+
+statek.addEventListener("mouseover", function () {
+    if (!isClicked) {
+        
+        statek.style.backgroundColor = "red";
+    }
+});
+
+statek.addEventListener("mouseout", function () {
+    if (!isClicked) {
+        
+        statek.style.backgroundColor = "white"; 
+    }
+});
+
+statek.addEventListener("click", function () {
+    isClicked = true; 
+    statek.style.backgroundColor = "blue";
+    document.addEventListener("click", function resetColor(e) {
+        if (e.target !== statek) {
+            isClicked = false; 
+            statek.style.backgroundColor = "white"; 
+            document.removeEventListener("click", resetColor);
+        }
+    });
+});
+       
+    }
+    //==================================================
+    for (let i = 0; i < statki.length; ++i) {
+        let czyObok;
+        let x, y;
+        let kierunek;
+
+        do {
+            x = Math.floor(Math.random() * 10);
+            y = Math.floor(Math.random() * 10);
+            kierunek = Math.floor(Math.random() * 2);
+            czyObok = false;
+
+            for (let j = 0; j < statki[i]; ++j) {
+                if (
+                    (x + j * (1 - kierunek) < 0 || x + j * (1 - kierunek) > 9 || y + j * kierunek < 0 || y + j * kierunek > 9) ||
+                    tab[x + j * (1 - kierunek)][y + j * kierunek] === 1 ||
+                    (tab[x + j * (1 - kierunek) - 1] && tab[x + j * (1 - kierunek) - 1][y + j * kierunek] === 1)  || 
+                    (tab[x + j * (1 - kierunek) + 1] && tab[x + j * (1 - kierunek) + 1][y + j * kierunek] === 1) || 
+                    (tab[x + j * (1 - kierunek)][y + j * kierunek - 1] === 1) || 
+                    (tab[x + j * (1 - kierunek)][y + j * kierunek + 1] === 1) || 
+                    (tab[x + j * (1 - kierunek) - 1] && tab[x + j * (1 - kierunek) - 1][y + j * kierunek - 1] === 1) || 
+                    (tab[x + j * (1 - kierunek) - 1] && tab[x + j * (1 - kierunek) - 1][y + j * kierunek + 1] === 1) || 
+                    (tab[x + j * (1 - kierunek) + 1] && tab[x + j * (1 - kierunek) + 1][y + j * kierunek - 1] === 1) || 
+                    (tab[x + j * (1 - kierunek) + 1] && tab[x + j * (1 - kierunek) + 1][y + j * kierunek + 1] === 1)
+                ) {
+                    czyObok = true;
+                    break;
+                }
+            }
+        } while (czyObok);
+
+        for (let j = 0; j < statki[i]; ++j) {
+            tab[x + j * (1 - kierunek)][y + j * kierunek] = 1;
+        }
+    }
+    for (let i = 0; i < 10; ++i) {
+        for (let j = 0; j < 10; ++j) {
+            const komora = document.getElementById(i + ' ' + j);
+            if (tab[i][j] === 1) {
+                komora.style.backgroundColor = 'black';
+            }
+        }
+    }
+}
+    </script>
+</head>
+<body onload="init()">
+<div id="main"></div>
+</body>
+</html>
